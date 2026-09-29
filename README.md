@@ -2,8 +2,8 @@
 
 ## Integrante
 
-**Nome:** [preencher nome do integrante]  
-**RM:** [preencher RM]
+**Nome:** Pedro Marinho Rodrigues Camargo Corrêa  
+**RM:** 20240012
 
 ## Como executar
 
@@ -21,7 +21,7 @@
    npm start
    ```
 
-5. Acesse [http://localhost:3000](http://localhost:3000) no navegador. O banco SQLite e armazenado no arquivo `database.sqlite`.
+5. Acesse [http://localhost:3000](http://localhost:3000) no navegador. O banco SQLite é armazenado no arquivo `database.sqlite`.
 
 ## Funcionalidades
 
@@ -33,5 +33,7 @@
 ## Desafios
 
 - **Relacionar produtos e categorias:** foram criados os Models `Produto` e `Categoria`. A associacao `Categoria.hasMany(Produto)` e `Produto.belongsTo(Categoria)` estabelece uma relacao de um para muitos; `categoriaId` e a chave estrangeira no produto.
+  
 - **Escolher a categoria do produto:** os formularios de cadastro e edicao carregam as categorias do banco e permitem selecionar uma delas.
+  
 - **Listar produtos por categoria:** a rota `GET /categorias/:id/produtos` encontra a categoria pelo ID e consulta os produtos com `Produto.findAll`, filtrando por `categoriaId`. Assim, a pagina mostra somente os produtos associados a categoria escolhida.
