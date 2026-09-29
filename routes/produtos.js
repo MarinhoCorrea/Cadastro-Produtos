@@ -1,31 +1,34 @@
 const express = require('express');
 const router = express.Router();
 
-const { Produto } = require('../models');
+const { Produto, Categoria } = require('../models');
 
 router.get('/', async (req, res) => {
-  const produtos = await Produto.findAll();
+  const produtos = await Produto.findAll({ include: { model: Categoria, as: 'categoria' } });
 
   res.render('produtos/index', {
     produtos
   });
 });
 
-router.get('/novo', (req, res) => {
-  res.render('produtos/novo');
+router.get('/novo', async (req, res) => {
+  const categorias = await Categoria.findAll();
+  res.render('produtos/novo', { categorias });
 });
 
 router.post('/', async (req, res) => {
-  await Produto.create(req.body);
+  await Produto.create({ ...req.body, categoriaId: req.body.categoriaId || null });
 
   res.redirect('/produtos');
 });
 
 router.get('/:id/editar', async (req, res) => {
   const produto = await Produto.findByPk(req.params.id);
+  const categorias = await Categoria.findAll();
 
   res.render('produtos/editar', {
-    produto
+    produto,
+    categorias
   });
 });
 

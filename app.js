@@ -8,6 +8,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var produtosRouter = require('./routes/produtos');
+var categoriasRouter = require('./routes/categorias');
+var { sequelize } = require('./models');
 
 var app = express();
 
@@ -23,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/produtos', produtosRouter);
+app.use('/categorias', categoriasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,11 +45,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const { sequelize } = require('./models');
-const produtosRouter = require('./routes/produtos');
-
-sequelize.sync();
-app.use('/produtos', produtosRouter);
+sequelize.sync({ alter: true });
 
 
 module.exports = app;

@@ -1,0 +1,19 @@
+<h1>Categorias</h1>
+
+<a href="/produtos">Voltar aos produtos</a>
+
+<form action="/categorias" method="POST">
+    <label for="nome">Nome da categoria:</label>
+    <input id="nome" type="text" name="nome" required>
+    <button type="submit">Adicionar categoria</button>
+</form>
+
+<ul>
+    <% categorias.forEach(categoria => { %>
+        <li>
+            <a href="/categorias/<%= categoria.id %>/produtos">
+                <%= categoria.nome %> - Ver produtos
+            </a>
+        </li>
+    <% }) %>
+</ul>
